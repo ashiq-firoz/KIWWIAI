@@ -15,3 +15,5 @@
 - clone the repository
 - install the required packages using pip install -r requirements.txt
 - create a .env file with **GEMINI API KEY**
+
+### Go to 

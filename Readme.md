@@ -25,3 +25,5 @@ pip install -r requirements.txt
 cd app
 uvicorn main:app --env-file .env
 ```
+## View API Doc
+ http://http://127.0.0.1:8000/docs

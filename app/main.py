@@ -3,15 +3,9 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 from fastapi import FastAPI, Depends, File, UploadFile, Body, Query,Form
 from core.initializer import initialise_express
-from core.pages import generate_page,create_content
+from core.pages import generate_page,create_content,get_page
 from core.routes import add_route
-
-class Item(BaseModel):
-    name: str
-    description: str | None = None
-    price: float
-    tax: float | None = None
-
+import scheme
 
 app = FastAPI()
 
@@ -19,34 +13,37 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Api Status": "ok 200"}
 
 
-@app.post("/login/")
+@app.post("/login/",tags=["Authenthication Routes"])
 async def create_item(item: str):
     print(item)
     return item
 
-@app.post("/framework")
-async def select_framework(framework : str,no : int):
-    print(framework)
-    if framework == "express":
-        print(no)
+@app.post("/backendframework", tags=["Operations"])
+async def select_framework(framework:scheme.BackendFrameworks):
+    """
+    Api to initialize a repo with Respective Backend FrameWork
+    """
+    if framework == scheme.BackendFrameworks.EXPRESS:
         if initialise_express("user1"):
             return {"status":True}
         else:
             return {"status":False}
     return {"status":False}
 
-@app.post("/pages")
-async def add_pages(page_data:str,page_name:str):
-    print(page_data)
+@app.post("/createpage", tags=["Operations"])
+async def add_page(page_description:str,page_name:str):
+    """
+    API to create pages based on the description given
+    """
     try:
-        o1 = generate_page(page_data)
-        o2 = create_content(page_data,page_name,"user1")
-        o3 = add_route(page_name,page_data,"user1")
+        o1 = generate_page(page_description)
+        o2 = create_content(page_description,page_name,"user1")
+        o3 = add_route(page_name,page_description,"user1")
         
-        if not o1 and not o2 and not o3:
+        if not o1 and not o2 and not o3: #if any of the above process fails
             return {"status":False}
         else:
             return {"status":True}
@@ -54,4 +51,10 @@ async def add_pages(page_data:str,page_name:str):
         print(e)
         return False
 
+
+@app.post("/viewpage", tags=["Operations"])
+async def view_page(page_name:str):
+    """API to view page in realtime"""
+    print(page_name)
+    return {"url":get_page(page_name)}
 

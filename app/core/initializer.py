@@ -1,11 +1,13 @@
 import os
 import shutil
 
+initial_dir = os.getcwd()
+
 def initialise_express(user):
     try:
         os.system("npm install -g express-generator")
-        os.system("express --view=hbs "+user+"app")
-        os.chdir("./"+user+"app")
+        os.system("express --view=hbs "+"./Temp_Outputs/"+user+"app")
+        os.chdir("./Temp_Outputs/"+user+"app")
         os.system("npm install")
 
         src_dir = '../Resources'
@@ -26,6 +28,7 @@ def initialise_express(user):
                     print(f"Copied: {src_file} to {dest_file}")
         except Exception as e:
             print(f"An error occurred: {e}")
+        os.chdir(initial_dir)
        
     except Exception as err:
         print(err)

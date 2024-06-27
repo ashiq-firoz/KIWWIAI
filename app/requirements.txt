@@ -1,4 +1,5 @@
 fastapi
+fastapi-cors
+google-generativeai
 uvicorn
-python-dotenv
-google.generativeai
+dotenv

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import {MdDarkMode , MdLightMode } from "react-icons/md";
 import { FaArrowUpLong } from "react-icons/fa6";
+import { readRoot, login, selectFramework, addPage, viewPage } from '../app/api/service/route';
 
 import ChatNav from "./ChatNav";
 
@@ -12,13 +13,19 @@ export default function Chat() {
   const [input, setInput] = useState('');
   const [darkMode, setDarkMode] = useState(true);
 
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
     if (input.trim() !== '') {
       setMessages([...messages, { text: input, sender: 'User' }]);
-      setInput('');
+      setInput('');}
+    try {
+      const response = await addPage('This is a test page', 'TestPage');
+      console.log(response);
+    } catch (error) {
+      console.error('Error adding page:', error);
     }
   };
+
 
   useEffect(() => {
     if (darkMode) {

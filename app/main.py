@@ -5,10 +5,23 @@ from fastapi import FastAPI, Depends, File, UploadFile, Body, Query,Form
 from core.initializer import initialise_express
 from core.pages import generate_page,create_content,get_page
 from core.routes import add_route
+from fastapi.middleware.cors import CORSMiddleware
+
 import scheme
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",  # Add the URL of your Next.js app here
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")

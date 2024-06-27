@@ -1,0 +1,5 @@
+fastapi
+fastapi-cors
+google-generativeai
+uvicorn
+dotenv

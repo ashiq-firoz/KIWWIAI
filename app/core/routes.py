@@ -1,13 +1,13 @@
 import os
 from core.Models import generate_route_response
 
-def add_route(page_name, page_data, user):
+def add_route(page_name, page_data, user,repoId):
     try:
         # Generate the new lines to be added
         
         
         # Define the path to the index.js file
-        file_path = "./Temp_Outputs/"+"user1app"+f'/routes/index.js'
+        file_path = "./Temp_Outputs/"+"user"+repoId+"app"+f'/routes/index.js'
         
         # Read the current content of the file
         with open(file_path, "r") as f:

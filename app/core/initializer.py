@@ -1,14 +1,24 @@
 import os
 import shutil
 
+
+
 initial_dir = os.getcwd()
 
 def initialise_express(user):
+    id = open("temp_storage.txt","r")
+    Id = id.read()
+    id.close()
     try:
         os.system("npm install -g express-generator")
-        os.system("express --view=hbs "+"./Temp_Outputs/"+user+"app")
+        os.system("express --view=hbs "+"./Temp_Outputs/"+user+Id+"app")
         os.chdir("./Temp_Outputs/"+user+"app")
         os.system("npm install")
+
+        f = open("temp_storage.txt","w")
+        id = int(Id)
+        f.write(str(id+1))
+        f.close()
 
         src_dir = '../Resources'
         dest_dir = f'./{user}app'
@@ -34,4 +44,4 @@ def initialise_express(user):
         print(err)
         return False
 
-    return True
+    return Id

@@ -27,21 +27,22 @@ async def select_framework(framework:scheme.BackendFrameworks):
     Api to initialize a repo with Respective Backend FrameWork
     """
     if framework == scheme.BackendFrameworks.EXPRESS:
-        if initialise_express("user1"):
-            return {"status":True}
+        id = initialise_express("user")
+        if id!=False:
+            return {"status":True,"repoID":id}
         else:
             return {"status":False}
     return {"status":False}
 
 @app.post("/createpage", tags=["Operations"])
-async def add_page(page_description:str,page_name:str):
+async def add_page(page_description:str,page_name:str,repoID : str):
     """
     API to create pages based on the description given
     """
     try:
-        o1 = generate_page(page_description)
-        o2 = create_content(page_description,page_name,"user1")
-        o3 = add_route(page_name,page_description,"user1")
+        o1 = generate_page(page_description,repoID)
+        o2 = create_content(page_description,page_name,"user",repoID)
+        o3 = add_route(page_name,page_description,"user")
         
         if not o1 and not o2 and not o3: #if any of the above process fails
             return {"status":False}

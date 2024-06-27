@@ -3,3 +3,6 @@ fastapi-cors
 google-generativeai
 uvicorn
 dotenv
+pymongo[srv]
+fastapi-login 
+itsdangerous

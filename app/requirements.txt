@@ -4,5 +4,4 @@ google-generativeai
 uvicorn
 dotenv
 pymongo[srv]
-fastapi-login 
-itsdangerous
+starlette==1.13

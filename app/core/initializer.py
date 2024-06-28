@@ -6,42 +6,37 @@ import shutil
 initial_dir = os.getcwd()
 
 def initialise_express(user):
-    id = open("temp_storage.txt","r")
-    Id = id.read()
-    id.close()
+    
     try:
         os.system("npm install -g express-generator")
-        os.system("express --view=hbs "+"./Temp_Outputs/"+user+Id+"app")
+        os.system("express --view=hbs "+"./Temp_Outputs/"+user+"app")
         os.chdir("./Temp_Outputs/"+user+"app")
         os.system("npm install")
+        os.system("npm i dotenv")
 
-        f = open("temp_storage.txt","w")
-        id = int(Id)
-        f.write(str(id+1))
-        f.close()
-
-        src_dir = '../Resources'
-        dest_dir = f'./{user}app'
+        # Create .env file
+        with open(".env", "w") as env_file:
+            env_file.write(f'PORT={8080}\n')  # Add your environment variables here
         
-        try:
-            # Create the destination directory if it does not exist
-            os.makedirs(dest_dir, exist_ok=True)
-            
-            # Iterate over all files in the source directory
-            for filename in os.listdir(src_dir):
-                src_file = os.path.join(src_dir, filename)
-                dest_file = os.path.join(dest_dir, filename)
-                
-                # Copy each file to the destination directory
-                if os.path.isfile(src_file):
-                    shutil.copy(src_file, dest_file)
-                    print(f"Copied: {src_file} to {dest_file}")
-        except Exception as e:
-            print(f"An error occurred: {e}")
+        with open("app.js", 'r') as file:
+            lines = file.readlines()
+
+        # Insert `require('dotenv').config();` at line 6 (index 5 in zero-based index)
+        lines.insert(5, "require('dotenv').config();\n")
+
+        # Write the modified lines back to the file
+        with open("app.js", 'w') as file:
+            file.writelines(lines)
+
+        # Create .gitignore file
+        with open(".gitignore", "w") as gitignore_file:
+            gitignore_file.write("node_modules/\n")  # Ignore node_modules directory
+
+        
         os.chdir(initial_dir)
        
     except Exception as err:
         print(err)
         return False
 
-    return Id
+    return True

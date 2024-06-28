@@ -27,7 +27,7 @@ def generate_route_response(promt,path,code,route_tag):
     code : code of the current route file
     route_tag : "/route_tag" the api endpoint
     """
-    promt = f'consider this code,{code},generate an express route code for :{promt} ,use async/await and use res.render and render path is {path},the endpoint should be "/{route_tag}",no explanation needed,just the .js file code should be returned'
+    promt = f'consider this code,{code},generate an express route code for :{promt} along with the current routes, if needed make changes in the routes ,use async/await and use res.render and render path is {path},the endpoint should be "/{route_tag}",no explanation needed,just the .js file code should be returned'
     response = model.generate_content(promt)
     #print(response.text)
     output = response.text.split("\n")

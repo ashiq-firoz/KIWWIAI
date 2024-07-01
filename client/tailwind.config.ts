@@ -12,6 +12,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        '[250px,1fr]': '250px minmax(0, 1fr)', // Adjust to your specific needs
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

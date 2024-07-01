@@ -33,7 +33,7 @@ const ChatNav = () => {
 
 
     return (
-        <nav className='flex py-2 fixed justify-between inset-x-0 z-10 px-5 bg-white dark:bg-gray-900'>
+        <nav className='flex py-2 justify-between inset-x-0 z-10 px-5 bg-white dark:bg-gray-900'>
 
             <Link href='/' className='flex gap-2 items-center flex-center'>
                 <Image
